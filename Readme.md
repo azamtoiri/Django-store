@@ -1,0 +1,3 @@
+# Django Project
+
+Learning Django 
