@@ -15,7 +15,7 @@ class UserLoginForm(AuthenticationForm):
         model = User
         fields = ('username', 'password')
 
-    def __int__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(UserLoginForm, self).__init__(*args, **kwargs)
         for field_name, filed in self.fields.items():
             filed.widget.attrs['class'] = 'form-control py-4'
