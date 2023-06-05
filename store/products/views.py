@@ -1,4 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+
 from products.models import ProductCategory, Product, Basket
 
 
@@ -9,15 +12,16 @@ def index(request):
     return render(request, 'products/index.html', context)
 
 
-def products(request):
-    context = {
-        'title': 'Store - Каталог',
-        'categories': ProductCategory.objects.all(),
-        'products': Product.objects.all(),
-    }
+def products(request, category_id=None):
+    context = {'title': 'Store - Каталог', 'categories': ProductCategory.objects.all()}
+    if category_id:
+        context.update({'products': Product.objects.filter(category_id=category_id)})
+    else:
+        context.update({'products': Product.objects.all()})
     return render(request, 'products/products.html', context)
 
 
+@login_required
 def basket_add(request, product_id):
     user = request.user
     current_page = request.META.get('HTTP_REFERER')
@@ -34,6 +38,7 @@ def basket_add(request, product_id):
         return HttpResponseRedirect(current_page)
 
 
+@login_required
 def basket_delete(request, product_id):
     current_page = request.META.get('HTTP_REFERER')
     basket = Basket.objects.get(id=product_id)
