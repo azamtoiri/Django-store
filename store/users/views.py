@@ -4,6 +4,7 @@ from django.contrib import auth, messages
 
 from users.forms import UserLoginForm, UserRegisterForm, UserProfileForm
 
+
 def login(request):
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)
@@ -18,6 +19,7 @@ def login(request):
         form = UserLoginForm()
     context = {'form': form}
     return render(request, 'users/login.html', context)
+
 
 def register(request):
     if request.method == 'POST':
@@ -44,3 +46,8 @@ def profile(request):
         form = UserProfileForm(instance=request.user)
     profile_context = {'form': form}
     return render(request, 'users/profile.html', context=profile_context)
+
+
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect(reverse('index'))

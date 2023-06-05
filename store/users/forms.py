@@ -43,7 +43,8 @@ class UserRegisterForm(UserCreationForm):
 class UserProfileForm(UserChangeForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'readonly': True}))
     email = forms.CharField(widget=forms.EmailInput(attrs={'readonly': True}))
-    image = forms.CharField(widget=forms.FileInput(), required=False)
+    image = forms.ImageField(widget=forms.FileInput(), required=False)
+
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name', 'last_name', 'image']
