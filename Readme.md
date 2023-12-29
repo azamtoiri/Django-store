@@ -1,3 +1,16 @@
 # Django Project
 
-Learning Django 
+Installation
+```shell
+pip install -r requirements.py
+```
+
+Create migrations
+```shell
+python manage.py migrate
+```
+
+Runsrever
+```shell
+python manage.py runserver
+```
